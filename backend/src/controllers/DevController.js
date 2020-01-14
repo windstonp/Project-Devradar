@@ -2,6 +2,11 @@ const dev = require('../models/dev');
 const axios = require("axios");
 const parseArrayAsString = require('../utils/parseStringAsArray');
 module.exports = {
+    async delete(request,response){
+        const {id} = request.query;
+        dev.findByIdAndDelete({_id: id}).exec();
+        return response.json(`usuario com a id ${id} acabou de ser excluido`);
+    },
     async index(request,response){
         const devs = await dev.find();
         return response.json(devs);
@@ -27,5 +32,5 @@ module.exports = {
             });
         }
         return response.json(devs);
-    }
+    },
 };
