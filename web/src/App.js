@@ -15,6 +15,11 @@ function App() {
     };
     loadDevs();
   },[]);
+  async function handleDel(id){
+    await api.delete('/devs/'+id);
+    const filteredDevs = devs.filter(dev => dev._id !== id);
+    setDevs(filteredDevs);
+  }
   async function handleDevSubmit(data){
     const response = await api.post('/devs',data)
     setDevs([
@@ -31,7 +36,7 @@ function App() {
       <main>
         <ul>
           {devs.map(dev=>(
-            <Devitem key={dev._id} dev={dev} />
+            <Devitem del={handleDel} key={dev._id} dev={dev} />
           ))}
         </ul>
       </main>
