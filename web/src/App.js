@@ -16,7 +16,7 @@ function App() {
     loadDevs();
   },[]);
   async function handleDel(id){
-    await api.delete('/devs/'+id);
+    await api.delete('/devs?id='+id);
     const filteredDevs = devs.filter(dev => dev._id !== id);
     setDevs(filteredDevs);
   }
