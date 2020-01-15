@@ -11,6 +11,7 @@ module.exports = {
             }
             const update = await dev.updateOne({github_username: github_param}, request.body);
             if(update.nModified == 0){
+                
                 throw new Error("dev não encontrado");
             }
             return response.send();
