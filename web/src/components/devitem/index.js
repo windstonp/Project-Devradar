@@ -13,6 +13,7 @@ function Devitem({dev, del}){
         </header>
         <p>{dev.bio}</p>
         <a href={`https://github.com/${dev.github_username}`}>Github Profile</a>
+        <button type="button" className="del">🖉</button>
         </li>
     )
 };
