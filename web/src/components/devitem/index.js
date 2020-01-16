@@ -12,7 +12,7 @@ function Devitem({dev, del}){
         </div>
         </header>
         <p>{dev.bio}</p>
-        <a href={`https://https:/github.com/${dev.github_username}`}>Github Profile</a>
+        <a href={`https://github.com/${dev.github_username}`}>Github Profile</a>
         </li>
     )
 };
