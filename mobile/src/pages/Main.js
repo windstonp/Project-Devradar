@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from "react";
-import {StyleSheet, Image,View,Text, TextInput,TouchableOpacity, Keyboard} from 'react-native';
+import {StyleSheet, Image,View,Text, TextInput,TouchableOpacity, Keyboard, KeyboardAvoidingView} from 'react-native';
 import MapView, {Marker, Callout} from "react-native-maps";
 import {requestPermissionsAsync, getCurrentPositionAsync} from 'expo-location';
 import {MaterialIcons} from '@expo/vector-icons';
@@ -39,13 +39,13 @@ function Main({navigation}){
         setDevs(response.data.devs);
     }
     function handleRegionChanged(region){
-        console.log(region)
         setCurrentRegion(region);
     }
     if (!currentRegion) {
         return null;
     }
     return(
+        <KeyboardAvoidingView style={styles.wrapper} behavior="height">
         <>
             <MapView onRegionChangeComplete={handleRegionChanged} initialRegion={currentRegion} style={styles.map}>
                 {devs.map(dev=>(
@@ -73,18 +73,27 @@ function Main({navigation}){
                     autoCorrect = {false}
                     value = {techs}
                     onChangeText={setTechs}
+                    onSubmitEditing={Keyboard.dismiss}
                 />
                 <TouchableOpacity onPress={loadDevs} style={styles.loadButton}>
                     <MaterialIcons name="my-location" size={20} color="#fff"/>
                 </TouchableOpacity>
             </View>
         </>
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
-    map: {
-        flex: 1
+    wrapper:{
+        display:'flex',
+        flex: 1,
+        marginBottom:-50
+    },
+    map:{
+        flex:1,
+        zIndex:2,
+        marginBottom:25
     },
     avatar: {
         width: 30,
@@ -112,7 +121,7 @@ const styles = StyleSheet.create({
     },
     searchForm:{
         position:'absolute',
-        top: 20,
+        bottom: 85,
         left: 20,
         right: 20,
         zIndex: 5,
